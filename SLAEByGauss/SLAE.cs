@@ -12,7 +12,7 @@ namespace SLAEByGauss
 {
     public partial class SLAE : Form
     {
-        int[,] matrix;
+        double[,] matrix;
         Solver solver;
         public SLAE()
         {
@@ -20,28 +20,28 @@ namespace SLAEByGauss
         }
         private void calculateButton_Click(object sender, EventArgs e)
         {
-            matrix = new int[4,5];
+            matrix = new double[4,5];
             
-            if (int.TryParse(a11.Text, out matrix[0,0]) &&
-                int.TryParse(a12.Text, out matrix[0,1]) &&
-                int.TryParse(a13.Text, out matrix[0,2]) &&
-                int.TryParse(a14.Text, out matrix[0,3]) &&
-                int.TryParse(a15.Text, out matrix[0,4]) &&
-                int.TryParse(a21.Text, out matrix[1,0]) &&
-                int.TryParse(a22.Text, out matrix[1,1]) &&
-                int.TryParse(a23.Text, out matrix[1,2]) &&
-                int.TryParse(a24.Text, out matrix[1,3]) &&
-                int.TryParse(a25.Text, out matrix[1,4]) &&
-                int.TryParse(a31.Text, out matrix[2,0]) &&
-                int.TryParse(a32.Text, out matrix[2,1]) &&
-                int.TryParse(a33.Text, out matrix[2,2]) &&
-                int.TryParse(a34.Text, out matrix[2,3]) &&
-                int.TryParse(a35.Text, out matrix[2,4]) &&
-                int.TryParse(a41.Text, out matrix[3,0]) &&
-                int.TryParse(a42.Text, out matrix[3,1]) &&
-                int.TryParse(a43.Text, out matrix[3,2]) &&
-                int.TryParse(a44.Text, out matrix[3,3]) &&
-                int.TryParse(a45.Text, out matrix[3,4])
+            if (double.TryParse(a11.Text, out matrix[0,0]) &&
+                double.TryParse(a12.Text, out matrix[0,1]) &&
+                double.TryParse(a13.Text, out matrix[0,2]) &&
+                double.TryParse(a14.Text, out matrix[0,3]) &&
+                double.TryParse(a15.Text, out matrix[0,4]) &&
+                double.TryParse(a21.Text, out matrix[1,0]) &&
+                double.TryParse(a22.Text, out matrix[1,1]) &&
+                double.TryParse(a23.Text, out matrix[1,2]) &&
+                double.TryParse(a24.Text, out matrix[1,3]) &&
+                double.TryParse(a25.Text, out matrix[1,4]) &&
+                double.TryParse(a31.Text, out matrix[2,0]) &&
+                double.TryParse(a32.Text, out matrix[2,1]) &&
+                double.TryParse(a33.Text, out matrix[2,2]) &&
+                double.TryParse(a34.Text, out matrix[2,3]) &&
+                double.TryParse(a35.Text, out matrix[2,4]) &&
+                double.TryParse(a41.Text, out matrix[3,0]) &&
+                double.TryParse(a42.Text, out matrix[3,1]) &&
+                double.TryParse(a43.Text, out matrix[3,2]) &&
+                double.TryParse(a44.Text, out matrix[3,3]) &&
+                double.TryParse(a45.Text, out matrix[3,4])
                 )
             {
                 
@@ -53,6 +53,20 @@ namespace SLAEByGauss
             }
         }
 
-        
+        private void infiniteButton_Click(object sender, EventArgs e)
+        {
+            a11.Text = "2"; a12.Text = "3"; a13.Text = "-1"; a14.Text = "1"; a15.Text = "1";
+            a21.Text = "8"; a22.Text = "12"; a23.Text = "-9"; a24.Text = "8"; a25.Text = "3";
+            a31.Text = "4"; a32.Text = "6"; a33.Text = "3"; a34.Text = "-2"; a35.Text = "3";
+            a41.Text = "2"; a42.Text = "3"; a43.Text = "9"; a44.Text = "-7"; a45.Text = "3";
+        }
+
+        private void inconsistentButton_Click(object sender, EventArgs e)
+        {
+            a11.Text = "1"; a12.Text = "1"; a13.Text = "1"; a14.Text = "1"; a15.Text = "4";
+            a21.Text = "2"; a22.Text = "2"; a23.Text = "2"; a24.Text = "2"; a25.Text = "8";
+            a31.Text = "3"; a32.Text = "3"; a33.Text = "3"; a34.Text = "3"; a35.Text = "13";
+            a41.Text = "4"; a42.Text = "4"; a43.Text = "4"; a44.Text = "4"; a45.Text = "16";
+        }
     }
 }
