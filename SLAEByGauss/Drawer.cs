@@ -86,20 +86,43 @@ namespace SLAEByGauss
             } 
             else resultMonitor.Text += "The SLAE has a unique solution: \r\n";
         }
-        public void ShowReversePass(double[,] matrix, double x1, double x2, double x3, double x4, double[] E)
+        public void ShowReversePass(double[,] matrix, double[] X, double[] E)
         {
+            int freeMember = matrix.GetLength(1) - 1;
+            
             string result = "Reverse pass:\r\n";
-            result += $"X4 = {matrix[0, 4]} / {matrix[0, 3]}\r\n" +
-                      $"X3 = ({matrix[1, 4]} - (x4 * {matrix[1, 3]})) / {matrix[1, 2]}\r\n" +
-                      $"X2 = ({matrix[2, 4]} - (x3 *{matrix[2, 2]}) - (x4 * {matrix[2, 3]})) / {matrix[2, 1]}\r\n" +
-                      $"X1 = ({matrix[3, 4]} - (x2 * {matrix[3, 1]}) - (x3 * {matrix[3, 2]}) - (x4 * {matrix[3, 3]})) / {matrix[3, 0]}\r\n";
-            result += "Final result: \r\n";
-            result += $"X1 = {x1}\r\nX2 = {x2}\r\nX3 = {x3}\r\nX4 = {x4}\r\n";
-            result += "\r\nResidual vectors: \r\n";
-            for (int i = 0; i < E.Length; i++)
+            for (int xRow = 0; xRow < X.Length; xRow++) 
             {
-                result += $"E{i+1} = {E[i]}\r\n";
+                int xNumber = X.Length - xRow;
+                int xCol = xNumber - 1;                         
+                result += $"X{xNumber} = ({matrix[xRow, freeMember]}"; 
+                for (int j = 0; j < xRow; j++) 
+                {   
+                    int otherXNumber = xNumber + (j + 1);
+                    int otherXCol = xNumber + j;
+                    result += $" - (x{otherXNumber} * ";
+                    if (matrix[xRow, otherXCol] < 0) result += $"({matrix[xRow, otherXCol]})";
+                    else result += $"{matrix[xRow, otherXCol]}";
+                }
+                result += $") / {matrix[xRow, xCol]}\r\n";
+                   
             }
+          
+            result += "Final result: \r\n";
+            for (int i = 0; i < X.Length; i++)
+            {
+                result += $"X{i+1} = {X[i]}\r\n";
+            }
+            
+            result += "\r\nResidual vectors: \r\n";
+            if (E != null)
+            {
+                for (int i = 0; i < E.Length; i++)
+                {
+                    result += $"E{i + 1} = {E[i]}\r\n";
+                }
+            }
+            
             resultMonitor.Text += result;
         }
         public void IsInconsistent()
