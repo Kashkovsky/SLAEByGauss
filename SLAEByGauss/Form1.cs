@@ -44,7 +44,7 @@ namespace SLAEByGauss
                 int.TryParse(a45.Text, out matrix[3,4])
                 )
             {
-                solver = new Solver(matrix, monitor);
+                solver = new Solver(matrix, monitor, resultMonitor, dataGridView1, dataGridView2);
             }
             else
             {
