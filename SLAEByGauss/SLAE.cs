@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace SLAEByGauss
 {
-    public partial class Form1 : Form
+    public partial class SLAE : Form
     {
         int[,] matrix;
         Solver solver;
-        public Form1()
+        public SLAE()
         {
             InitializeComponent();
         }
@@ -44,6 +44,7 @@ namespace SLAEByGauss
                 int.TryParse(a45.Text, out matrix[3,4])
                 )
             {
+                
                 solver = new Solver(matrix, monitor, resultMonitor, dataGridView1, dataGridView2);
             }
             else
