@@ -69,7 +69,7 @@ namespace SLAEByGauss
         private void SimpleConversion()
         {
             int currentRow = 1;
-            int NumberOfPasses = 3;
+            int NumberOfPasses = colLength - 1;
             int colPosition = 0;
             bool consistent = true;
             for (int pass = 0; pass < colLength - 1; pass++)
