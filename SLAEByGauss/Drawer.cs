@@ -17,7 +17,9 @@ namespace SLAEByGauss
         DataTable table;
         DataTable triangularTable;
         string result = "";
-        
+        double delta;
+        int colLength;
+        int rowLength;
 
         public Drawer(TextBox monitor, TextBox resultMonitor, DataGridView grid, DataGridView grid2)
         {
@@ -43,7 +45,9 @@ namespace SLAEByGauss
         }
         public void DrawMatrix(double[,] matrix, byte tableNumber)
         {
-            int colLength = matrix.GetLength(0);
+
+            colLength = matrix.GetLength(0);
+            rowLength = matrix.GetLength(1);
             for (int i = 0; i < colLength; i++)
             {
                 if (tableNumber == 0) table.Rows.Add(matrix[i, 0], matrix[i, 1], matrix[i, 2], matrix[i, 3], matrix[i, 4]);
@@ -79,6 +83,7 @@ namespace SLAEByGauss
         }
         public void ShowResult(double delta, bool consistent)
         {
+            this.delta = delta;
             resultMonitor.Clear();
             resultMonitor.Text += $"Triangular determinant equals {delta}\r\n";
             if (delta == 0) {
@@ -123,6 +128,45 @@ namespace SLAEByGauss
                 }
             }
             
+            resultMonitor.Text += result;
+        }
+        public void ShowReversePass(double[,] matrix, double[] X)
+        {
+            int freeMember = matrix.GetLength(1) - 1;
+            List<int> zeroX = new List<int>();
+            string result = "";
+            for (int i = 0; i < X.Length; i++)
+            {
+                if (X[i] == 0)
+                {
+                    result += $"Let X{i + 1} = 0\r\n";
+                    zeroX.Add(i+1);
+                } 
+            }
+            int xNumber;
+            int xRow;
+            int xCol;
+            for (int i = X.Length; i > 0; i--) //i3 - X4
+            {
+                xNumber = i;
+                if (!zeroX.Contains(xNumber)) {
+                    xRow = colLength - i;
+                    xCol = xNumber - 1;
+                    result += $"X{xNumber} = ({matrix[xRow, freeMember]}";
+                    for (int m = i; m < freeMember; m++)
+                    {
+                        result += $" - {X[m]}";
+                    }
+                    result += $") / {matrix[xRow, xCol]}\r\n";
+                }
+
+            }
+            result += "Final result: \r\n(";
+            foreach (double xn in X)
+            {
+                result += $"{xn}; ";
+            }
+            result += ")";
             resultMonitor.Text += result;
         }
         public void IsInconsistent()
