@@ -130,7 +130,7 @@ namespace SLAEByGauss
             for (int rowToCheck = 1; rowToCheck < colLength; rowToCheck++)
             {
                 bool workMade = false;
-                double[] temp = new double[rowLength];
+                double temp;
                 if (matrix[rowToCheck, 0] == 0)
                 {
                     int currentRow = rowToCheck;
@@ -139,9 +139,9 @@ namespace SLAEByGauss
                     {
                         for (int j = 0; j < rowLength; j++)
                         {
-                            temp[j] = matrix[currentRow, j];
+                            temp = matrix[currentRow, j];
                             matrix[currentRow, j] = matrix[previousRow, j];
-                            matrix[previousRow, j] = temp[j];
+                            matrix[previousRow, j] = temp;
                         }
                         currentRow--;
                         if (currentRow != 0) previousRow = currentRow - 1;
