@@ -79,8 +79,8 @@
             this.label17 = new System.Windows.Forms.Label();
             this.infiniteButton = new System.Windows.Forms.Button();
             this.inconsistentButton = new System.Windows.Forms.Button();
-            this.solverBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.taskButton = new System.Windows.Forms.Button();
+            this.solverBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.solverBindingSource)).BeginInit();
@@ -278,7 +278,7 @@
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Location = new System.Drawing.Point(368, 38);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataGridView1.Size = new System.Drawing.Size(305, 110);
             this.dataGridView1.TabIndex = 22;
             // 
@@ -322,7 +322,7 @@
             this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView2.Location = new System.Drawing.Point(368, 181);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataGridView2.Size = new System.Drawing.Size(305, 110);
             this.dataGridView2.TabIndex = 25;
             // 
@@ -517,10 +517,6 @@
             this.inconsistentButton.UseVisualStyleBackColor = true;
             this.inconsistentButton.Click += new System.EventHandler(this.inconsistentButton_Click);
             // 
-            // solverBindingSource
-            // 
-            this.solverBindingSource.DataSource = typeof(SLAEByGauss.Solver);
-            // 
             // taskButton
             // 
             this.taskButton.Location = new System.Drawing.Point(368, 397);
@@ -530,6 +526,10 @@
             this.taskButton.Text = "SLAE form Task";
             this.taskButton.UseVisualStyleBackColor = true;
             this.taskButton.Click += new System.EventHandler(this.taskButton_Click);
+            // 
+            // solverBindingSource
+            // 
+            this.solverBindingSource.DataSource = typeof(SLAEByGauss.Solver);
             // 
             // SLAE
             // 
