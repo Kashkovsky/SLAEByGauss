@@ -69,7 +69,7 @@ namespace SLAEByGauss
             result += $"\r\n{description}\r\n";
             for (int i = 0; i < 4; i++)
             {
-                result += "|\t";
+                result += "| ";
                 for (int j = 0; j < 5; j++)
                 {
                     result += $"{matrix[i, j]}\t";
