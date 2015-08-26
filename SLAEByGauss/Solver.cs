@@ -115,7 +115,7 @@ namespace SLAEByGauss
                 }
                 drawer.ShowDescription(matrix, $"Multiply row {currentRow + 1} by {targetRowMultiplier}\r\n" +
                        $"Multiply row {currentRow + 2} by {copyRowMultiplier}. \r\n" +
-                       $"Add row {currentRow + 2} to row {currentRow + 1}"
+                       $"Add -row {currentRow + 2} to row {currentRow + 1}"
                 );
                 if (currentRow != 0) currentRow--;
                 NumberOfPasses--;
