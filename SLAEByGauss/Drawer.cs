@@ -23,7 +23,6 @@ namespace SLAEByGauss
 
         public Drawer(TextBox monitor, TextBox resultMonitor, DataGridView grid, DataGridView grid2)
         {
-            
             this.monitor = monitor;
             this.resultMonitor = resultMonitor;
             this.grid = grid;
@@ -45,7 +44,6 @@ namespace SLAEByGauss
         }
         public void DrawMatrix(double[,] matrix, byte tableNumber)
         {
-
             colLength = matrix.GetLength(0);
             rowLength = matrix.GetLength(1);
             for (int i = 0; i < colLength; i++)
@@ -53,7 +51,6 @@ namespace SLAEByGauss
                 if (tableNumber == 0) table.Rows.Add(matrix[i, 0], matrix[i, 1], matrix[i, 2], matrix[i, 3], matrix[i, 4]);
                 else triangularTable.Rows.Add(matrix[i, 0], matrix[i, 1], matrix[i, 2], matrix[i, 3], matrix[i, 4]);
             }
-            
             SetColWidth();
         }
         private void SetColWidth()
@@ -72,7 +69,7 @@ namespace SLAEByGauss
             result += $"\r\n{description}\r\n";
             for (int i = 0; i < 4; i++)
             {
-                result += "|";
+                result += "|\t";
                 for (int j = 0; j < 5; j++)
                 {
                     result += $"{matrix[i, j]}\t";
@@ -130,7 +127,7 @@ namespace SLAEByGauss
             
             resultMonitor.Text += result;
         }
-        public void ShowReversePass(double[,] matrix, double[] X)
+        public void ShowReversePass(double[,] matrix, double[] X, double[] E, bool multiple)
         {
             int freeMember = matrix.GetLength(1) - 1;
             List<int> zeroX = new List<int>();
@@ -146,7 +143,7 @@ namespace SLAEByGauss
             int xNumber;
             int xRow;
             int xCol;
-            for (int i = X.Length; i > 0; i--) //i3 - X4
+            for (int i = X.Length; i > 0; i--) 
             {
                 xNumber = i;
                 if (!zeroX.Contains(xNumber)) {
@@ -159,7 +156,6 @@ namespace SLAEByGauss
                     }
                     result += $") / {matrix[xRow, xCol]}\r\n";
                 }
-
             }
             result += "Final result: \r\n(";
             foreach (double xn in X)
@@ -167,12 +163,19 @@ namespace SLAEByGauss
                 result += $"{xn}; ";
             }
             result += ")";
+            result += "\r\nResidual vectors: \r\n";
+            if (E != null)
+            {
+                for (int i = 0; i < E.Length; i++)
+                {
+                    result += $"E{i + 1} = {E[i]}\r\n";
+                }
+            }
             resultMonitor.Text += result;
         }
         public void IsInconsistent()
         {
             resultMonitor.Text = "The SLAE is inconsistent.";
         }
-        
     }
 }

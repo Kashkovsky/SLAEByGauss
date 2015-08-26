@@ -68,5 +68,13 @@ namespace SLAEByGauss
             a31.Text = "3"; a32.Text = "3"; a33.Text = "3"; a34.Text = "3"; a35.Text = "13";
             a41.Text = "4"; a42.Text = "4"; a43.Text = "4"; a44.Text = "4"; a45.Text = "16";
         }
+
+        private void taskButton_Click(object sender, EventArgs e)
+        {
+            a11.Text = "-3"; a12.Text = "4"; a13.Text = "1"; a14.Text = "4"; a15.Text = "-1";
+            a21.Text = "0"; a22.Text = "1"; a23.Text = "3"; a24.Text = "2"; a25.Text = "-1";
+            a31.Text = "4"; a32.Text = "0"; a33.Text = "-2"; a34.Text = "-3"; a35.Text = "4";
+            a41.Text = "1000"; a42.Text = "3"; a43.Text = "1"; a44.Text = "-5"; a45.Text = "-2";
+        }
     }
 }
