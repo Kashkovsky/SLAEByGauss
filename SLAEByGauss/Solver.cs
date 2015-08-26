@@ -69,14 +69,15 @@ namespace SLAEByGauss
         private void SimpleConversion()
         {
             int currentRow = 1;
-            int NumberOfPasses = colLength - 1;
+            int NumberOfPasses = 3;
             int colPosition = 0;
             bool consistent = true;
             for (int pass = 0; pass < colLength - 1; pass++)
             {
                 double copyRowMultiplier = 0;
                 double targetRowMultiplier = 0;
-
+                string description = "";
+                string sign = "";
                 for (int rowNumber = currentRow; rowNumber < NumberOfPasses; rowNumber++)
                 {
                     int x = (int)Math.Abs(matrix[rowNumber, colPosition]);
@@ -90,6 +91,8 @@ namespace SLAEByGauss
                             if (consistent)
                             {
                                 double temp = matrix[rowNumber + 1, i];
+                                if (temp < 0) sign = "-";
+                                else sign = "";
                                 if (xRaw < 0 && matrix[rowNumber + 1, colPosition] < 0) temp = -temp;
                                 if (xRaw > 0 && matrix[rowNumber + 1, colPosition] > 0) temp = -temp;
                                 if (D > 1)
@@ -111,13 +114,12 @@ namespace SLAEByGauss
                             else return;
                         }
                     }
-
+                    description = $"Multiply row {rowNumber + 1} by {targetRowMultiplier}\r\n";
+                    description += $"Multiply row {rowNumber + 2} by " + sign + $"{copyRowMultiplier}. \r\n";
+                    description += $"Add row {rowNumber + 2} to row {rowNumber + 1}";
+                    drawer.ShowDescription(matrix, description);
                 }
-                string description = $"Multiply row {currentRow + 1} by {targetRowMultiplier}\r\n";
-                if (temp < 0) description += $"Multiply row {currentRow + 2} by -{copyRowMultiplier}. \r\n";
-                else description += $"Multiply row {currentRow + 2} by {copyRowMultiplier}. \r\n";
-                description += $"Add -row {currentRow + 2} to row {currentRow + 1}";
-                drawer.ShowDescription(matrix, description);
+                
                 if (currentRow != 0) currentRow--;
                 NumberOfPasses--;
                 colPosition++;
