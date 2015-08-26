@@ -113,10 +113,11 @@ namespace SLAEByGauss
                     }
 
                 }
-                drawer.ShowDescription(matrix, $"Multiply row {currentRow + 1} by {targetRowMultiplier}\r\n" +
-                       $"Multiply row {currentRow + 2} by {copyRowMultiplier}. \r\n" +
-                       $"Add -row {currentRow + 2} to row {currentRow + 1}"
-                );
+                string description = $"Multiply row {currentRow + 1} by {targetRowMultiplier}\r\n";
+                if (temp < 0) description += $"Multiply row {currentRow + 2} by -{copyRowMultiplier}. \r\n";
+                else description += $"Multiply row {currentRow + 2} by {copyRowMultiplier}. \r\n";
+                description += $"Add -row {currentRow + 2} to row {currentRow + 1}";
+                drawer.ShowDescription(matrix, description);
                 if (currentRow != 0) currentRow--;
                 NumberOfPasses--;
                 colPosition++;
