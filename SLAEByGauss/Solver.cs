@@ -164,19 +164,22 @@ namespace SLAEByGauss
         {
             if (determinant != 0)
             {
-                for (int xRow = 0; xRow < X.Length; xRow++)
-                {
-                    int xNumber = X.Length - xRow - 1;      
-                    int xCol = xNumber;                         
-                    X[xNumber] = (matrix[xRow, freeMember]);
-                    for (int j = 0; j < xRow; j++)
-                    {
-                        int previousXNumber = xNumber + (j + 1); 
-                        int previousXCol = xNumber + j + 1; 
-                        X[xNumber] -= X[previousXNumber] * matrix[xRow, previousXCol];
-                    }
-                    X[xNumber] /= matrix[xRow, xCol];
-                }
+                // claculate all Xs using iterations
+                //for (int xRow = 0; xRow < X.Length; xRow++)
+                //{
+                //    int xNumber = X.Length - xRow - 1;      
+                //    int xCol = xNumber;                         
+                //    X[xNumber] = (matrix[xRow, freeMember]);
+                //    for (int j = 0; j < xRow; j++)
+                //    {
+                //        int previousXNumber = xNumber + (j + 1); 
+                //        int previousXCol = xNumber + j + 1; 
+                //        X[xNumber] -= X[previousXNumber] * matrix[xRow, previousXCol];
+                //    }
+                //    X[xNumber] /= matrix[xRow, xCol];
+                //}
+                // or use recursive method RecX(0);
+                RecX(0);
             }
             //---------------------------------------------
             // if determinant = 0 and SLAE has an infinity number of solutions
@@ -275,6 +278,17 @@ namespace SLAEByGauss
             }
             similarRow = null;
             return similarRowNumber;
+        }
+        private double RecX (int n)
+        {
+            int r = colLength - (n + 1);
+            X[n] = matrix[r, freeMember];
+            for (int i = n + 1; i < colLength; i++)
+            {
+                X[n] -= RecX(i) * matrix[r, i];
+            }
+            X[n] /= matrix[r, n];
+            return X[n];
         }
     }
 }
