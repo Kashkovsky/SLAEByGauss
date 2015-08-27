@@ -160,7 +160,7 @@ namespace SLAEByGauss
         {
             return y == 0 ? x : GCD(y, x % y);
         }
-        private void ReversePass()
+        private void ReversePass()        //simplify with recursion?...
         {
             if (determinant != 0)
             {
