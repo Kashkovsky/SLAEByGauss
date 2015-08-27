@@ -160,11 +160,13 @@ namespace SLAEByGauss
         {
             return y == 0 ? x : GCD(y, x % y);
         }
-        private void ReversePass()        //simplify with recursion?...
+        private void ReversePass()        
         {
             if (determinant != 0)
             {
-                // claculate all Xs using iterations
+                // calculate X1, X2, X3, X4 using recursive method RecX(0);
+                RecX(0);
+                // ... nested iterations also do their job though:
                 //for (int xRow = 0; xRow < X.Length; xRow++)
                 //{
                 //    int xNumber = X.Length - xRow - 1;      
@@ -178,8 +180,6 @@ namespace SLAEByGauss
                 //    }
                 //    X[xNumber] /= matrix[xRow, xCol];
                 //}
-                // or use recursive method RecX(0);
-                RecX(0);
             }
             //---------------------------------------------
             // if determinant = 0 and SLAE has an infinity number of solutions
@@ -196,6 +196,17 @@ namespace SLAEByGauss
                     E[i] -= (X[j] * intact[i, j]);
                 }
             }
+        }
+        private double RecX(int n)
+        {
+            int r = colLength - (n + 1);
+            X[n] = matrix[r, freeMember];
+            for (int i = n + 1; i < colLength; i++)
+            {
+                X[n] -= RecX(i) * matrix[r, i];
+            }
+            X[n] /= matrix[r, n];
+            return X[n];
         }
         private Dictionary<int, int[]> CheckBasis()
         {
@@ -279,16 +290,6 @@ namespace SLAEByGauss
             similarRow = null;
             return similarRowNumber;
         }
-        private double RecX (int n)
-        {
-            int r = colLength - (n + 1);
-            X[n] = matrix[r, freeMember];
-            for (int i = n + 1; i < colLength; i++)
-            {
-                X[n] -= RecX(i) * matrix[r, i];
-            }
-            X[n] /= matrix[r, n];
-            return X[n];
-        }
+        
     }
 }
