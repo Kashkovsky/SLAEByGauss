@@ -81,6 +81,7 @@ namespace SLAEByGauss
             resultMonitor.Text += $"Triangular determinant equals {delta}\r\n";
             if (delta == 0) {
                 if (consistent) resultMonitor.Text += "The SLAE has an infinite number of solutions.\r\n";
+                else IsInconsistent();
             } 
             else resultMonitor.Text += "The SLAE has a unique solution: \r\n";
         }
@@ -171,7 +172,7 @@ namespace SLAEByGauss
         }
         public void IsInconsistent()
         {
-            resultMonitor.Text = "The SLAE is inconsistent.";
+            resultMonitor.Text += "The SLAE is inconsistent.";
         }
     }
 }
