@@ -74,7 +74,7 @@ namespace SLAEByGauss
         private void SimpleConversion()
         {
             int currentRow = 1;
-            int NumberOfPasses = 3;
+            int NumberOfPasses = colLength - 1;
             int colPosition = 0;
             for (int pass = 0; pass < colLength - 1; pass++)
             {
@@ -150,7 +150,14 @@ namespace SLAEByGauss
         }
         private void CalculateDelta()
         {
-            determinant = matrix[3, 0] * matrix[2, 1] * matrix[1, 2] * matrix[0, 3]; 
+            determinant = matrix[colLength - 1, 0];
+            int j = 1;
+            for (int i = colLength - 2; i >= 0; i--)
+            {
+                determinant *= matrix[i, j];
+                j++;
+            }
+            //determinant = matrix[3, 0] * matrix[2, 1] * matrix[1, 2] * matrix[0, 3]; 
         }
         private void FinalResult()
         {
