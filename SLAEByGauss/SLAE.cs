@@ -13,6 +13,7 @@ namespace SLAEByGauss
     public partial class SLAE : Form
     {
         double[,] matrix;
+        public double[,] Matrix { get { return matrix; } set { matrix = value; } }
         Solver solver;
         public SLAE()
         {
@@ -49,7 +50,7 @@ namespace SLAEByGauss
             }
             else
             {
-                monitor.Text = "Wrong input. Integer values expected.";
+                monitor.Text = "Wrong input. Numeric values expected.";
             }
         }
 

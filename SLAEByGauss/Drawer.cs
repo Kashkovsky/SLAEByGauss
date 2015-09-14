@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace SLAEByGauss
 {
-    class Drawer
+    public class Drawer
     {
         private TextBox monitor;
         private TextBox resultMonitor;

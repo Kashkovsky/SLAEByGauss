@@ -6,7 +6,7 @@ using System.Data;
 
 namespace SLAEByGauss
 {
-    class Solver
+    public class Solver
     {
         double[,] matrix;
         double[,] intact;
@@ -19,22 +19,30 @@ namespace SLAEByGauss
         int numberOfbasisVars;
         bool consistent = true;
         Drawer drawer;
+
+        public Solver(double[,] matrix) {
+            this.matrix = matrix;
+            this.intact = matrix;
+            Setup();
+            SolveEquation();
+        }
         public Solver(double[,] matrix, TextBox monitor, TextBox resultMonitor, DataGridView grid, DataGridView grid2)
         {
             this.matrix = matrix;
             this.intact = matrix;
+            drawer = new Drawer(monitor, resultMonitor, grid, grid2);
+            Setup();
+            SolveEquation();
+        }
+        private void Setup() {
             colLength = matrix.GetLength(0);
             rowLength = matrix.GetLength(1);
             freeMember = rowLength - 1;
-            drawer = new Drawer(monitor, resultMonitor, grid, grid2);
             X = new double[rowLength - 1];
             if (colLength % 2 == 0) numberOfbasisVars = colLength / 2;
             else numberOfbasisVars = (colLength - 1) / 2;
-            SolveEquasion();
-            
         }
-        //Here comes Neo
-        private void SolveEquasion()
+        public void SolveEquation()
         {
             drawer.DrawMatrix(matrix, 0);
             drawer.ShowDescription(matrix, "Create extended matrix");
