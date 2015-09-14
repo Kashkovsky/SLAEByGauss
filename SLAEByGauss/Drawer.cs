@@ -13,7 +13,6 @@ namespace SLAEByGauss
         DataTable table;
         DataTable triangularTable;
         string result = "";
-        double delta;
         int colLength;
         int rowLength;
 
@@ -76,7 +75,6 @@ namespace SLAEByGauss
         }
         public void ShowResult(double delta, bool consistent)
         {
-            this.delta = delta;
             resultMonitor.Clear();
             resultMonitor.Text += $"Triangular determinant equals {delta}\r\n";
             if (delta == 0) {
@@ -87,7 +85,7 @@ namespace SLAEByGauss
         }
         public void ShowReversePass(double[,] matrix, double[] X, double[] E)
         {
-            int freeMember = matrix.GetLength(1) - 1;
+            int freeMember = rowLength - 1;
             
             string result = "Reverse pass:\r\n";
             for (int xRow = 0; xRow < X.Length; xRow++) 
@@ -126,7 +124,7 @@ namespace SLAEByGauss
         }
         public void ShowReversePass(double[,] matrix, double[] X, double[] E, bool multiple)
         {
-            int freeMember = matrix.GetLength(1) - 1;
+            int freeMember = rowLength - 1;
             List<int> zeroX = new List<int>();
             string result = "";
             for (int i = 0; i < X.Length; i++)
