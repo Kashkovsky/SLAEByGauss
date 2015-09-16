@@ -49,6 +49,7 @@
     <Compile Include="Drawer.cs" />
     <Compile Include="GridArgs.cs" />
     <Compile Include="ResultArgs.cs" />
+    <Compile Include="ReversePassArgs.cs" />
     <Compile Include="SLAE.cs">
       <SubType>Form</SubType>
     </Compile>

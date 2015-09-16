@@ -15,7 +15,8 @@ namespace SLAEByGauss
         readonly int _colLength;
         public double[] X { get; private set; }
         public double[] E { get; private set; }
-        double _determinant = 0;
+        double _determinant;
+        private bool HasMultipleOrInconsistent => _determinant == 0;
         readonly int _freeMember;
         readonly int _numberOfbasisVars;
        // Drawer drawer;
@@ -36,7 +37,8 @@ namespace SLAEByGauss
 
         public static event EventHandler<SolverArgs> UpdateMatrix;
         public static event EventHandler<GridArgs> UpdateGridRepresentation;
-        public static event EventHandler<ResultArgs> CalculationComplete;  
+        public static event EventHandler<ResultArgs> CalculationComplete;
+        public static event EventHandler<ReversePassArgs> ReversePassComplete;   
         
         public void SolveEquasion()
         {
@@ -50,8 +52,8 @@ namespace SLAEByGauss
             if (CheckConsistency())
             {
                 ReversePass();
-              //  if (_determinant != 0) drawer.ShowReversePass(Matrix, X, E);
-              //  else drawer.ShowReversePass(Matrix, X, E, true);
+                ReversePassComplete(this, new ReversePassArgs(Matrix, X, E, HasMultipleOrInconsistent));
+
             }
         }
         public bool CheckConsistency()
@@ -81,7 +83,6 @@ namespace SLAEByGauss
             {
                 double copyRowMultiplier = 0;
                 double targetRowMultiplier = 0;
-                string description = "";// createing description is not a solver's job!!!!!!!!!!!!!!
                 string sign = "";
                 for (int rowNumber = currentRow; rowNumber < numberOfPasses; rowNumber++)
                 {
@@ -120,10 +121,6 @@ namespace SLAEByGauss
                         }
                     }
                    UpdateMatrix(this, new SolverArgs(Matrix, rowNumber + 1, rowNumber + 2, targetRowMultiplier, copyRowMultiplier, sign));
-                    //description = $"Multiply row {rowNumber + 1} by {targetRowMultiplier}\r\n";
-                    //description += $"Multiply row {rowNumber + 2} by " + sign + $"{copyRowMultiplier}. \r\n";
-                    //description += $"Add row {rowNumber + 2} to row {rowNumber + 1}";
-                 //   drawer.ShowDescription(Matrix, description);
                 }
                 
                 if (currentRow != 0) currentRow--;

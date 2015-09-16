@@ -14,8 +14,8 @@ namespace SLAEByGauss
         DataTable triangularTable;
         string result = "";
         double delta;
-        int colLength;
-        int rowLength;
+        int _colLength;
+        int _rowLength;
 
         public Drawer(TextBox monitor, TextBox resultMonitor, DataGridView grid, DataGridView grid2)
         {
@@ -40,6 +40,12 @@ namespace SLAEByGauss
             Solver.UpdateMatrix += SolverUpdateMatrix;
             Solver.UpdateGridRepresentation += Solver_UpdateGridRepresentation;
             Solver.CalculationComplete += Solver_CalculationComplete;
+            Solver.ReversePassComplete += Solver_ReversePassComplete;
+        }
+
+        private void Solver_ReversePassComplete(object sender, ReversePassArgs e)
+        {
+            resultMonitor.Text += e.Message;
         }
 
         private void Solver_CalculationComplete(object sender, ResultArgs e)
@@ -51,13 +57,13 @@ namespace SLAEByGauss
 
         private void Solver_UpdateGridRepresentation(object sender, GridArgs e)
         {
-            colLength = e.Matrix.GetLength(0);
-            rowLength = e.Matrix.GetLength(1);
+            _colLength = e.Matrix.GetLength(0);
+            _rowLength = e.Matrix.GetLength(1);
 
-                for (int i = 0; i < colLength; i++)
+                for (int i = 0; i < _colLength; i++)
                 {
-                    double[] rowToAdd = new double[rowLength];
-                    for (int j = 0; j < rowLength; j++)
+                    double[] rowToAdd = new double[_rowLength];
+                    for (int j = 0; j < _rowLength; j++)
                     {
                         rowToAdd[j] = e.Matrix[i, j];
                     }
@@ -84,93 +90,7 @@ namespace SLAEByGauss
                 column.Width = 50;
             }
         }
-       
 
-        public void ShowReversePass(double[,] matrix, double[] X, double[] E)
-        {
-            int freeMember = matrix.GetLength(1) - 1;
-            
-            string result = "Reverse pass:\r\n";
-            for (int xRow = 0; xRow < X.Length; xRow++) 
-            {
-                int xNumber = X.Length - xRow;
-                int xCol = xNumber - 1;                         
-                result += $"X{xNumber} = ({matrix[xRow, freeMember]}"; 
-                for (int j = 0; j < xRow; j++) 
-                {   
-                    int otherXNumber = xNumber + (j + 1);
-                    int otherXCol = xNumber + j;
-                    result += $" - (x{otherXNumber} * ";
-                    if (matrix[xRow, otherXCol] < 0) result += $"({matrix[xRow, otherXCol]})";
-                    else result += $"{matrix[xRow, otherXCol]}";
-                }
-                result += $") / {matrix[xRow, xCol]}\r\n";
-                   
-            }
-          
-            result += "Final result: \r\n";
-            for (int i = 0; i < X.Length; i++)
-            {
-                result += $"X{i+1} = {X[i]}\r\n";
-            }
-            
-            result += "\r\nResidual vectors: \r\n";
-            if (E != null)
-            {
-                for (int i = 0; i < E.Length; i++)
-                {
-                    result += $"E{i + 1} = {E[i]}\r\n";
-                }
-            }
-            
-            resultMonitor.Text += result;
-        }
-        public void ShowReversePass(double[,] matrix, double[] X, double[] E, bool multiple)
-        {
-            int freeMember = matrix.GetLength(1) - 1;
-            List<int> zeroX = new List<int>();
-            string result = "";
-            for (int i = 0; i < X.Length; i++)
-            {
-                if (X[i] == 0)
-                {
-                    result += $"Let X{i + 1} = 0\r\n";
-                    zeroX.Add(i+1);
-                } 
-            }
-            int xNumber;
-            int xRow;
-            int xCol;
-            for (int i = X.Length; i > 0; i--) 
-            {
-                xNumber = i;
-                if (!zeroX.Contains(xNumber)) {
-                    xRow = colLength - i;
-                    xCol = xNumber - 1;
-                    result += $"X{xNumber} = ({matrix[xRow, freeMember]}";
-                    for (int m = i; m < freeMember; m++)
-                    {
-                        result += $" - {X[m]}";
-                    }
-                    result += $") / {matrix[xRow, xCol]}\r\n";
-                }
-            }
-            result += "Final result: \r\n(";
-            foreach (double xn in X)
-            {
-                result += $"{xn}; ";
-            }
-            result += ")";
-            result += "\r\nResidual vectors: \r\n";
-            if (E != null)
-            {
-                for (int i = 0; i < E.Length; i++)
-                {
-                    result += $"E{i + 1} = {E[i]}\r\n";
-                }
-            }
-            resultMonitor.Text += result;
-        }
         public void IsInconsistent()
         {
             resultMonitor.Text = "The Slae is inconsistent.";
