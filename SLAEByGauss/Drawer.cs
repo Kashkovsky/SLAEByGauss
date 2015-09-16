@@ -1,42 +1,43 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Windows.Forms;
+using SLAEByGauss.Arguments;
 
 namespace SLAEByGauss
 {
-    class Drawer
+    public class Drawer
     {
-        private TextBox monitor;
-        private TextBox resultMonitor;
-        private DataGridView grid;
-        private DataGridView grid2;
-        DataTable table;
-        DataTable triangularTable;
-        string result = "";
-        double delta;
-        int _colLength;
-        int _rowLength;
+        private readonly TextBox _monitor;
+        private readonly TextBox _resultMonitor;
+        private readonly DataGridView _grid;
+        private readonly DataGridView _grid2;
+        private readonly DataTable _table;
+        private readonly DataTable _triangularTable;
+        private int _colLength;
+        private int _rowLength;
 
         public Drawer(TextBox monitor, TextBox resultMonitor, DataGridView grid, DataGridView grid2)
         {
-            this.monitor = monitor;
-            this.resultMonitor = resultMonitor;
-            this.grid = grid;
-            this.grid2 = grid2;
-            table = new DataTable();
-            triangularTable = new DataTable();
-            table.Columns.Add("A1", typeof(int));
-            table.Columns.Add("A2", typeof(int));
-            table.Columns.Add("A3", typeof(int));
-            table.Columns.Add("A4", typeof(int));
-            table.Columns.Add("C", typeof(int));
-            triangularTable.Columns.Add("A1", typeof(int));
-            triangularTable.Columns.Add("A2", typeof(int));
-            triangularTable.Columns.Add("A3", typeof(int));
-            triangularTable.Columns.Add("A4", typeof(int));
-            triangularTable.Columns.Add("C", typeof(int));
-            grid.DataSource = table;
-            grid2.DataSource = triangularTable;
+            this._monitor = monitor;
+            this._resultMonitor = resultMonitor;
+            this._grid = grid;
+            this._grid2 = grid2;
+            _table = new DataTable();
+            _triangularTable = new DataTable();
+            _table.Columns.Add("A1", typeof(int));
+            _table.Columns.Add("A2", typeof(int));
+            _table.Columns.Add("A3", typeof(int));
+            _table.Columns.Add("A4", typeof(int));
+            _table.Columns.Add("C", typeof(int));
+            _triangularTable.Columns.Add("A1", typeof(int));
+            _triangularTable.Columns.Add("A2", typeof(int));
+            _triangularTable.Columns.Add("A3", typeof(int));
+            _triangularTable.Columns.Add("A4", typeof(int));
+            _triangularTable.Columns.Add("C", typeof(int));
+            grid.DataSource = _table;
+            grid2.DataSource = _triangularTable;
+            _monitor.Clear();
+            _resultMonitor.Clear();
+
             Solver.UpdateMatrix += SolverUpdateMatrix;
             Solver.UpdateGridRepresentation += Solver_UpdateGridRepresentation;
             Solver.CalculationComplete += Solver_CalculationComplete;
@@ -45,14 +46,14 @@ namespace SLAEByGauss
 
         private void Solver_ReversePassComplete(object sender, ReversePassArgs e)
         {
-            resultMonitor.Text += e.Message;
+            _resultMonitor.Text += e.Message;
         }
 
         private void Solver_CalculationComplete(object sender, ResultArgs e)
         {
        
-            resultMonitor.Clear();
-            resultMonitor.Text += e.Message;
+            _resultMonitor.Clear();
+            _resultMonitor.Text += e.Message;
         }
 
         private void Solver_UpdateGridRepresentation(object sender, GridArgs e)
@@ -62,13 +63,26 @@ namespace SLAEByGauss
 
                 for (int i = 0; i < _colLength; i++)
                 {
-                    double[] rowToAdd = new double[_rowLength];
+                    object[] rowToAdd = new object[_rowLength];
+                    
+                    
                     for (int j = 0; j < _rowLength; j++)
                     {
                         rowToAdd[j] = e.Matrix[i, j];
                     }
-                    if (e.TableNumber == 0) table.Rows.Add(rowToAdd);
-                    else triangularTable.Rows.Add(rowToAdd);
+
+                    if (e.TableNumber == 0)
+                    {
+                        DataRow row = _table.NewRow();
+                        row.ItemArray = rowToAdd;
+                        _table.Rows.Add(row);
+                    }
+                    else
+                    {
+                        DataRow row = _triangularTable.NewRow();
+                        row.ItemArray = rowToAdd;
+                        _triangularTable.Rows.Add(row);
+                    }
                 }
           
                 SetColWidth();
@@ -76,24 +90,19 @@ namespace SLAEByGauss
 
         private void SolverUpdateMatrix(object sender, SolverArgs e)
         {
-            monitor.Text = e.Message;
+            _monitor.Text += e.Message;
         }
 
         private void SetColWidth()
         {
-            foreach (DataGridViewColumn column in grid.Columns)
+            foreach (DataGridViewColumn column in _grid.Columns)
             {
                 column.Width = 50;
             }
-            foreach (DataGridViewColumn column in grid2.Columns)
+            foreach (DataGridViewColumn column in _grid2.Columns)
             {
                 column.Width = 50;
             }
-        }
-
-        public void IsInconsistent()
-        {
-            resultMonitor.Text = "The Slae is inconsistent.";
         }
     }
 }

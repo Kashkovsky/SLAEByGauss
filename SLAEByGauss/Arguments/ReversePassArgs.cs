@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SLAEByGauss
+namespace SLAEByGauss.Arguments
 {
     public class ReversePassArgs
     {

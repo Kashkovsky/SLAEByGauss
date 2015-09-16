@@ -13,7 +13,8 @@ namespace SLAEByGauss
     public partial class Slae : Form
     {
         double[,] _matrix;
-        Solver _solver;
+        private Solver _solver;
+        private Drawer _drawer;
         public Slae()
         {
             InitializeComponent();
@@ -46,6 +47,8 @@ namespace SLAEByGauss
             {
                 
                 _solver = new Solver(_matrix);
+                _drawer = new Drawer(monitor, resultMonitor, dataGridView1, dataGridView2);
+                _solver.SolveEquasion();
             }
             else
             {

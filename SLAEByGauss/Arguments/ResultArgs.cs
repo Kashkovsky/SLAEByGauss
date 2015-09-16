@@ -1,4 +1,4 @@
-﻿namespace SLAEByGauss
+﻿namespace SLAEByGauss.Arguments
 {
     public class ResultArgs
     {
@@ -8,11 +8,14 @@
             get
             {
                 string result = $"Triangular determinant equals {Determinant}\r\n";
-                if (Determinant == 0)
-                {
-                    if (Consistent) result += "The Slae has an infinite number of solutions.\r\n";
-                }
-                else result += "The Slae has a unique solution: \r\n";
+               
+                    if (Consistent)
+                    {
+                        if (Determinant == 0) result += "The SLAE has an infinite number of solutions.\r\n";
+                        else result += "The Slae has a unique solution: \r\n";
+                    }
+                    else result += "The SLAE is inconsistent.";
+                 
                 return result;
             }
         }

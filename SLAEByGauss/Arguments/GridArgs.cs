@@ -1,4 +1,4 @@
-﻿namespace SLAEByGauss
+﻿namespace SLAEByGauss.Arguments
 {
     public class GridArgs
     {

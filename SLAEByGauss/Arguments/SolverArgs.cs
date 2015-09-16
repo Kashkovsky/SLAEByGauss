@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SLAEByGauss
+namespace SLAEByGauss.Arguments
 {
     public class SolverArgs : EventArgs
     {
@@ -24,7 +24,7 @@ namespace SLAEByGauss
             Message = $"Multiply row {TargetRow} by {TargetMultiplier}\r\n" +
                        $"Multiply row {CopyRow} by " + _sign + $"{CopyMultiplier}. \r\n" +
                        $"Add row {CopyRow} to row {TargetRow}\r\n" +
-                       $"{_printedMatrix}";
+                       $"{_printedMatrix} \r\n";
         }
 
         public SolverArgs(double[,] matrix)

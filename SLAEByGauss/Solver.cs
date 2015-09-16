@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-using System.Data;
-using System.Security.Cryptography;
+using SLAEByGauss.Arguments;
 
 namespace SLAEByGauss
 {
@@ -31,8 +29,6 @@ namespace SLAEByGauss
             X = new double[_rowLength - 1];
             if (_colLength % 2 == 0) _numberOfbasisVars = _colLength / 2;
             else _numberOfbasisVars = (_colLength - 1) / 2;
-           // SolveEquasion();
-            
         }
 
         public static event EventHandler<SolverArgs> UpdateMatrix;
@@ -81,6 +77,8 @@ namespace SLAEByGauss
             bool consistent = true;
             for (int pass = 0; pass < _colLength - 1; pass++)
             {
+                int copyRow = 0;
+                int targetRow = 0;
                 double copyRowMultiplier = 0;
                 double targetRowMultiplier = 0;
                 string sign = "";
@@ -120,7 +118,9 @@ namespace SLAEByGauss
                             else return;
                         }
                     }
-                   UpdateMatrix(this, new SolverArgs(Matrix, rowNumber + 1, rowNumber + 2, targetRowMultiplier, copyRowMultiplier, sign));
+                    targetRow = rowNumber + 1;
+                    copyRow = rowNumber + 2;
+                    UpdateMatrix(this, new SolverArgs(Matrix, targetRow, copyRow, targetRowMultiplier, copyRowMultiplier, sign));
                 }
                 
                 if (currentRow != 0) currentRow--;
