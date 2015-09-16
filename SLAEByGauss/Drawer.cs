@@ -37,18 +37,42 @@ namespace SLAEByGauss
             triangularTable.Columns.Add("C", typeof(int));
             grid.DataSource = table;
             grid2.DataSource = triangularTable;
+            Solver.UpdateMatrix += SolverUpdateMatrix;
+            Solver.UpdateGridRepresentation += Solver_UpdateGridRepresentation;
+            Solver.CalculationComplete += Solver_CalculationComplete;
         }
-        public void DrawMatrix(double[,] matrix, byte tableNumber)
+
+        private void Solver_CalculationComplete(object sender, ResultArgs e)
         {
-            colLength = matrix.GetLength(0);
-            rowLength = matrix.GetLength(1);
-            for (int i = 0; i < colLength; i++)
-            {
-                if (tableNumber == 0) table.Rows.Add(matrix[i, 0], matrix[i, 1], matrix[i, 2], matrix[i, 3], matrix[i, 4]);
-                else triangularTable.Rows.Add(matrix[i, 0], matrix[i, 1], matrix[i, 2], matrix[i, 3], matrix[i, 4]);
-            }
-            SetColWidth();
+       
+            resultMonitor.Clear();
+            resultMonitor.Text += e.Message;
         }
+
+        private void Solver_UpdateGridRepresentation(object sender, GridArgs e)
+        {
+            colLength = e.Matrix.GetLength(0);
+            rowLength = e.Matrix.GetLength(1);
+
+                for (int i = 0; i < colLength; i++)
+                {
+                    double[] rowToAdd = new double[rowLength];
+                    for (int j = 0; j < rowLength; j++)
+                    {
+                        rowToAdd[j] = e.Matrix[i, j];
+                    }
+                    if (e.TableNumber == 0) table.Rows.Add(rowToAdd);
+                    else triangularTable.Rows.Add(rowToAdd);
+                }
+          
+                SetColWidth();
+        }
+
+        private void SolverUpdateMatrix(object sender, SolverArgs e)
+        {
+            monitor.Text = e.Message;
+        }
+
         private void SetColWidth()
         {
             foreach (DataGridViewColumn column in grid.Columns)
@@ -60,30 +84,8 @@ namespace SLAEByGauss
                 column.Width = 50;
             }
         }
-        public void ShowDescription(double[,] matrix, string description)
-        {
-            result += $"\r\n{description}\r\n";
-            for (int i = 0; i < 4; i++)
-            {
-                result += "| ";
-                for (int j = 0; j < 5; j++)
-                {
-                    result += $"{matrix[i, j]}\t";
-                }
-                result += "|\r\n";
-            }
-            monitor.Text = result;
-        }
-        public void ShowResult(double delta, bool consistent)
-        {
-            this.delta = delta;
-            resultMonitor.Clear();
-            resultMonitor.Text += $"Triangular determinant equals {delta}\r\n";
-            if (delta == 0) {
-                if (consistent) resultMonitor.Text += "The SLAE has an infinite number of solutions.\r\n";
-            } 
-            else resultMonitor.Text += "The SLAE has a unique solution: \r\n";
-        }
+       
+
         public void ShowReversePass(double[,] matrix, double[] X, double[] E)
         {
             int freeMember = matrix.GetLength(1) - 1;
@@ -171,7 +173,7 @@ namespace SLAEByGauss
         }
         public void IsInconsistent()
         {
-            resultMonitor.Text = "The SLAE is inconsistent.";
+            resultMonitor.Text = "The Slae is inconsistent.";
         }
     }
 }

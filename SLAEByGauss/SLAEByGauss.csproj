@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drawer.cs" />
+    <Compile Include="GridArgs.cs" />
+    <Compile Include="ResultArgs.cs" />
     <Compile Include="SLAE.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,6 +58,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solver.cs" />
+    <Compile Include="SolverArgs.cs" />
     <EmbeddedResource Include="SLAE.resx">
       <DependentUpon>SLAE.cs</DependentUpon>
     </EmbeddedResource>

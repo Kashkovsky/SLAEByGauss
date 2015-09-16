@@ -10,46 +10,46 @@ using System.Windows.Forms;
 
 namespace SLAEByGauss
 {
-    public partial class SLAE : Form
+    public partial class Slae : Form
     {
-        double[,] matrix;
-        Solver solver;
-        public SLAE()
+        double[,] _matrix;
+        Solver _solver;
+        public Slae()
         {
             InitializeComponent();
         }
         private void calculateButton_Click(object sender, EventArgs e)
         {
-            matrix = new double[4,5];
+            _matrix = new double[4,5];
             
-            if (double.TryParse(a11.Text, out matrix[0,0]) &&
-                double.TryParse(a12.Text, out matrix[0,1]) &&
-                double.TryParse(a13.Text, out matrix[0,2]) &&
-                double.TryParse(a14.Text, out matrix[0,3]) &&
-                double.TryParse(a15.Text, out matrix[0,4]) &&
-                double.TryParse(a21.Text, out matrix[1,0]) &&
-                double.TryParse(a22.Text, out matrix[1,1]) &&
-                double.TryParse(a23.Text, out matrix[1,2]) &&
-                double.TryParse(a24.Text, out matrix[1,3]) &&
-                double.TryParse(a25.Text, out matrix[1,4]) &&
-                double.TryParse(a31.Text, out matrix[2,0]) &&
-                double.TryParse(a32.Text, out matrix[2,1]) &&
-                double.TryParse(a33.Text, out matrix[2,2]) &&
-                double.TryParse(a34.Text, out matrix[2,3]) &&
-                double.TryParse(a35.Text, out matrix[2,4]) &&
-                double.TryParse(a41.Text, out matrix[3,0]) &&
-                double.TryParse(a42.Text, out matrix[3,1]) &&
-                double.TryParse(a43.Text, out matrix[3,2]) &&
-                double.TryParse(a44.Text, out matrix[3,3]) &&
-                double.TryParse(a45.Text, out matrix[3,4])
+            if (double.TryParse(a11.Text, out _matrix[0,0]) &&
+                double.TryParse(a12.Text, out _matrix[0,1]) &&
+                double.TryParse(a13.Text, out _matrix[0,2]) &&
+                double.TryParse(a14.Text, out _matrix[0,3]) &&
+                double.TryParse(a15.Text, out _matrix[0,4]) &&
+                double.TryParse(a21.Text, out _matrix[1,0]) &&
+                double.TryParse(a22.Text, out _matrix[1,1]) &&
+                double.TryParse(a23.Text, out _matrix[1,2]) &&
+                double.TryParse(a24.Text, out _matrix[1,3]) &&
+                double.TryParse(a25.Text, out _matrix[1,4]) &&
+                double.TryParse(a31.Text, out _matrix[2,0]) &&
+                double.TryParse(a32.Text, out _matrix[2,1]) &&
+                double.TryParse(a33.Text, out _matrix[2,2]) &&
+                double.TryParse(a34.Text, out _matrix[2,3]) &&
+                double.TryParse(a35.Text, out _matrix[2,4]) &&
+                double.TryParse(a41.Text, out _matrix[3,0]) &&
+                double.TryParse(a42.Text, out _matrix[3,1]) &&
+                double.TryParse(a43.Text, out _matrix[3,2]) &&
+                double.TryParse(a44.Text, out _matrix[3,3]) &&
+                double.TryParse(a45.Text, out _matrix[3,4])
                 )
             {
                 
-                solver = new Solver(matrix, monitor, resultMonitor, dataGridView1, dataGridView2);
+                _solver = new Solver(_matrix);
             }
             else
             {
-                monitor.Text = "Wrong input. Integer values expected.";
+                monitor.Text = "Wrong input. Numeric values expected.";
             }
         }
 

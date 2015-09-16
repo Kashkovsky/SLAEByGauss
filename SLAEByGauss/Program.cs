@@ -13,7 +13,7 @@ namespace SLAEByGauss
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SLAE());
+            Application.Run(new Slae());
         }
     }
 }

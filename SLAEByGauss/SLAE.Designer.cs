@@ -1,6 +1,6 @@
 ﻿namespace SLAEByGauss
 {
-    partial class SLAE
+    partial class Slae
     {
         /// <summary>
         /// Required designer variable.
@@ -503,7 +503,7 @@
             this.infiniteButton.Name = "infiniteButton";
             this.infiniteButton.Size = new System.Drawing.Size(305, 23);
             this.infiniteButton.TabIndex = 55;
-            this.infiniteButton.Text = "SLAE with infinite number of solutions";
+            this.infiniteButton.Text = "Slae with infinite number of solutions";
             this.infiniteButton.UseVisualStyleBackColor = true;
             this.infiniteButton.Click += new System.EventHandler(this.infiniteButton_Click);
             // 
@@ -513,7 +513,7 @@
             this.inconsistentButton.Name = "inconsistentButton";
             this.inconsistentButton.Size = new System.Drawing.Size(305, 23);
             this.inconsistentButton.TabIndex = 56;
-            this.inconsistentButton.Text = "Inconsistent SLAE";
+            this.inconsistentButton.Text = "Inconsistent Slae";
             this.inconsistentButton.UseVisualStyleBackColor = true;
             this.inconsistentButton.Click += new System.EventHandler(this.inconsistentButton_Click);
             // 
@@ -523,7 +523,7 @@
             this.taskButton.Name = "taskButton";
             this.taskButton.Size = new System.Drawing.Size(305, 23);
             this.taskButton.TabIndex = 57;
-            this.taskButton.Text = "SLAE form Task";
+            this.taskButton.Text = "Slae form Task";
             this.taskButton.UseVisualStyleBackColor = true;
             this.taskButton.Click += new System.EventHandler(this.taskButton_Click);
             // 
@@ -531,7 +531,7 @@
             // 
             this.solverBindingSource.DataSource = typeof(SLAEByGauss.Solver);
             // 
-            // SLAE
+            // Slae
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -585,9 +585,9 @@
             this.Controls.Add(this.a13);
             this.Controls.Add(this.a12);
             this.Controls.Add(this.a11);
-            this.Name = "SLAE";
+            this.Name = "Slae";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "SLAE Calc";
+            this.Text = "Slae Calc";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.solverBindingSource)).EndInit();
