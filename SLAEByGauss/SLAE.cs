@@ -12,10 +12,17 @@ namespace SLAEByGauss
 {
     public partial class Slae : Form
     {
+<<<<<<< HEAD
         double[,] _matrix;
       //  private Solver _solver;
        // private Drawer _drawer;
         public Slae()
+=======
+        double[,] matrix;
+        public double[,] Matrix { get { return matrix; } set { matrix = value; } }
+        Solver solver;
+        public SLAE()
+>>>>>>> master
         {
             InitializeComponent();
         }
