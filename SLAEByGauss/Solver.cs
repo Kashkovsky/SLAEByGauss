@@ -17,7 +17,7 @@ namespace SLAEByGauss
         private bool HasMultipleOrInconsistent => _determinant == 0;
         readonly int _freeMember;
         readonly int _numberOfbasisVars;
-       // Drawer drawer;
+
         public Solver(double[,] matrix)
         {
             this.Matrix = matrix;
@@ -25,13 +25,13 @@ namespace SLAEByGauss
             _colLength = matrix.GetLength(0);
             _rowLength = matrix.GetLength(1);
             _freeMember = _rowLength - 1;
-           // drawer = new Drawer(monitor, resultMonitor, grid, grid2);
             X = new double[_rowLength - 1];
             if (_colLength % 2 == 0) _numberOfbasisVars = _colLength / 2;
             else _numberOfbasisVars = (_colLength - 1) / 2;
         }
 
         public static event EventHandler<SolverArgs> UpdateMatrix;
+        public static event EventHandler<SwapRowsArgs> RowsSwaped;
         public static event EventHandler<GridArgs> UpdateGridRepresentation;
         public static event EventHandler<ResultArgs> CalculationComplete;
         public static event EventHandler<ReversePassArgs> ReversePassComplete;   
@@ -63,7 +63,6 @@ namespace SLAEByGauss
                 }
                 if (leftSum == 0 && leftSum != Matrix[i, 4])
                 {
-                //    drawer.IsInconsistent();
                     return false;
                 }
             };
@@ -152,7 +151,7 @@ namespace SLAEByGauss
                         workMade = true;
                     }
                 } 
-              //  if(workMade) drawer.ShowDescription(Matrix, "Swap rows for easy calculations");
+            if(workMade) RowsSwaped(this, new SwapRowsArgs(Matrix));
             }
         }
         public void CalculateDelta()
@@ -207,7 +206,6 @@ namespace SLAEByGauss
                 for (int row = 0; row < _colLength; row++)
                 {
                     double[] currentRow = new double[_rowLength];
-                    //double[] similarRow = new double[5];
                     if (row != similarRowNumber)
                     {
                         for (int c = 0; c < _rowLength; c++)
@@ -252,7 +250,6 @@ namespace SLAEByGauss
         }
         public int CheckSimilarRow(double[] currentRow, int row)
         {
-           // double[] similarRow = new double[_rowLength];
             double[] temp;
             int similarRowNumber = 0;
             for (int i = 0; i < _colLength; i++)
@@ -271,13 +268,11 @@ namespace SLAEByGauss
                     }
                     if (temp != null)
                     {
-                      //  similarRow = temp;
                         similarRowNumber = i;
                         return similarRowNumber;
                     };
                 }
             }
-           // similarRow = null;
             return similarRowNumber;
         }
     }

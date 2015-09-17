@@ -60,6 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solver.cs" />
     <Compile Include="Arguments\SolverArgs.cs" />
+    <Compile Include="SwapRowsArgs.cs" />
     <EmbeddedResource Include="SLAE.resx">
       <DependentUpon>SLAE.cs</DependentUpon>
     </EmbeddedResource>

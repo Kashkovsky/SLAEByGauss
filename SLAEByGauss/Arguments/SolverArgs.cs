@@ -15,6 +15,7 @@ namespace SLAEByGauss.Arguments
         public string Message { get; private set; }
         public SolverArgs(double[,] matrix, int targetRow, int copyRow, double targetMultiplier, double copyMultiplier, string sign)
         {
+            
             this.TargetRow = targetRow;
             this.CopyRow = copyRow;
             this.TargetMultiplier = targetMultiplier;

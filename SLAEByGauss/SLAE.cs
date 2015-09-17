@@ -13,8 +13,8 @@ namespace SLAEByGauss
     public partial class Slae : Form
     {
         double[,] _matrix;
-        private Solver _solver;
-        private Drawer _drawer;
+      //  private Solver _solver;
+       // private Drawer _drawer;
         public Slae()
         {
             InitializeComponent();
@@ -45,10 +45,15 @@ namespace SLAEByGauss
                 double.TryParse(a45.Text, out _matrix[3,4])
                 )
             {
+
+                using(Drawer _drawer = new Drawer(monitor, resultMonitor, dataGridView1, dataGridView2))
+                {
+                    Solver solver = new Solver(_matrix);
+                    solver.SolveEquasion();
+                }
+
                 
-                _solver = new Solver(_matrix);
-                _drawer = new Drawer(monitor, resultMonitor, dataGridView1, dataGridView2);
-                _solver.SolveEquasion();
+                
             }
             else
             {
