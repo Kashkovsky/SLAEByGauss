@@ -1,28 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SLAEByGauss
 {
     public partial class Slae : Form
     {
-<<<<<<< HEAD
         double[,] _matrix;
       //  private Solver _solver;
        // private Drawer _drawer;
         public Slae()
-=======
-        double[,] matrix;
-        public double[,] Matrix { get { return matrix; } set { matrix = value; } }
-        Solver solver;
-        public SLAE()
->>>>>>> master
         {
             InitializeComponent();
         }
